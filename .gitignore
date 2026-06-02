@@ -1,0 +1,31 @@
+## Core .NET/C# Artifacts
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Entity Framework Core Migrations & Tooling
+.failed-migration
+*.migrations.cfg
+
+## IDE Specific Configurations (VS Code, JetBrains, Visual Studio)
+.vscode/
+.idea/
+*.swp
+*.placeholder
+
+## Operating System Hidden Files
+.DS_Store
+Thumbs.db
+
+## Application Environments & Sensitive Data
+appsettings.Development.json
+*.local.json
+.env
+
+## Logs & Temp directories
+logs/
+*.log
+npm-debug.log*
