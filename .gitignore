@@ -25,6 +25,8 @@ appsettings.Development.json
 *.local.json
 .env
 
+**/Migrations/
+
 ## Logs & Temp directories
 logs/
 *.log
