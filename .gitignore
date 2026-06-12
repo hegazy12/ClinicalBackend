@@ -1,4 +1,5 @@
 ## Core .NET/C# Artifacts
+.vs/
 bin/
 obj/
 *.suo

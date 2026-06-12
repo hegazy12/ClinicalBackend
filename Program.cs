@@ -1,28 +1,26 @@
-using Microsoft.EntityFrameworkCore;
 using ElearingEnglis.DataCon;
-using ElearingEnglis.services.JWT;
-using Microsoft.AspNetCore.Identity;
-using ElearingEnglis.services.Lgoin;
-using ElearingEnglis.services.Rgistration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using ElearingEnglis.services.Patient;
 using ElearingEnglis.services.Appoinment;
 using ElearingEnglis.services.Doctor;
+using ElearingEnglis.services.Drug;
+using ElearingEnglis.services.JWT;
+using ElearingEnglis.services.Lgoin;
+using ElearingEnglis.services.Patient;
+using ElearingEnglis.services.Rgistration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
 builder.Services.AddDbContext<DBCon>(options =>
-    options.UseMySql(
-        connectionString, 
-        ServerVersion.AutoDetect(connectionString)
-    ));
-
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBCon>();
 builder.Services.AddControllers();
 
@@ -42,6 +40,8 @@ builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<IPatient,SPatient>();
 builder.Services.AddScoped<IAppoinment,SAppoinment>();
 builder.Services.AddScoped<IDoctor,SDoctor>();
+builder.Services.AddScoped<IDrugImportService, DrugImportService>();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
