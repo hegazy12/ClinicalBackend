@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SecureBackendApi.Controllers;
+namespace ElearingEnglis.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
