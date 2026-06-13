@@ -11,12 +11,19 @@ public class DBCon : IdentityDbContext
     public DbSet<Appointment> appointments {get; set;}
     public DbSet<Doctor> doctors {get; set;}
     public DbSet<Drug> drugs { get; set; }
+    public DbSet<DrugItem> drugItems {get; set;}
+    public DbSet<Prescription> prescriptions {get; set;}    
     public DBCon(DbContextOptions<DBCon> options) : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Drug>()
             .Property(d => d.PriceEgp)
             .HasPrecision(10, 2);
+
+        modelBuilder.Entity<Prescription>().HasMany(p => p.Items).WithOne(i => i.Prescription).HasForeignKey(i => i.PrescriptionId);
+        modelBuilder.Entity<Prescription>().HasOne(p => p.Doctor).WithMany(d => d.prescriptions);
+
     }
 }

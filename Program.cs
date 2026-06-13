@@ -17,10 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<DBCon>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+    options.UseMySql(
+        connectionString,
+        ServerVersion.AutoDetect(connectionString)
+
+    ));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBCon>();
 builder.Services.AddControllers();
 
@@ -41,6 +44,8 @@ builder.Services.AddScoped<IPatient,SPatient>();
 builder.Services.AddScoped<IAppoinment,SAppoinment>();
 builder.Services.AddScoped<IDoctor,SDoctor>();
 builder.Services.AddScoped<IDrugImportService, DrugImportService>();
+builder.Services.AddScoped<IDrugService, DrugService>();
+builder.Services.AddScoped<IDrugRepo, DrugRepo>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -70,12 +75,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy(MyAllowSpecificOrigins,
     policy =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+        policy.WithOrigins("http://localhost:4200", "https://localhost:5076").AllowAnyHeader().AllowAnyMethod();
     });
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi(); 
+builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();  
 var app = builder.Build();
 

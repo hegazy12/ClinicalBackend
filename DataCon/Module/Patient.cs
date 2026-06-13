@@ -13,4 +13,6 @@ public class Patient : BaseModule
     
     [Required] 
     public string Phone {get; set;}= String.Empty;
+    public List<Prescription> prescriptions {get; set;} = new List<Prescription>();
+    
 }
