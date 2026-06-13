@@ -15,12 +15,15 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<DBCon>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+    options.UseMySql(
+        connectionString, 
+        ServerVersion.AutoDetect(connectionString)
+
+    ));
+    
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBCon>();
 builder.Services.AddControllers();
 
