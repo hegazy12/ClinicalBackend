@@ -14,6 +14,7 @@ public class DBCon : IdentityDbContext
     public DbSet<DrugItem> drugItems {get; set;}
     public DbSet<Prescription> prescriptions {get; set;}    
     public DBCon(DbContextOptions<DBCon> options) : base(options){}
+  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -26,4 +27,5 @@ public class DBCon : IdentityDbContext
         modelBuilder.Entity<Prescription>().HasOne(p => p.Doctor).WithMany(d => d.prescriptions);
 
     }
+    
 }
