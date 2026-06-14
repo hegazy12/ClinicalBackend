@@ -1,5 +1,4 @@
 ﻿using ElearingEnglis.services.Drug;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElearingEnglis.Controllers

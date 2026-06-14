@@ -22,8 +22,8 @@ builder.Services.AddDbContext<DBCon>(options =>
     options.UseMySql(
         connectionString,
         ServerVersion.AutoDetect(connectionString)
-
     ));
+    
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBCon>();
 builder.Services.AddControllers();
 
@@ -69,7 +69,9 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     // options.AddPolicy(MyAllowSpecificOrigins,
@@ -78,12 +80,14 @@ builder.Services.AddCors(options =>
     //     policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
     // });
     
+
     options.AddPolicy("AllowAll", policy =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
+
 
 });
 
