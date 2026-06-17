@@ -10,5 +10,6 @@
         public string? Notes { get; set; }     
 
         public ICollection<DrugItem> Items { get; set; }
+        public Appointment Appointment {get; set;}
     }
 }

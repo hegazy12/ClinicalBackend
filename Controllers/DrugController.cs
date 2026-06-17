@@ -2,11 +2,13 @@
 using ElearingEnglis.services.Drug.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ElearingEnglis.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
+    [Authorize(Roles = "Admin,User")]
     public class DrugController : ControllerBase
     {
         private readonly IDrugService _service;

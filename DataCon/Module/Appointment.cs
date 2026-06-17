@@ -9,7 +9,7 @@ public class Appointment : BaseModule
         [Required]
         public Patient Patient { get; set; }
         [Required]
-        public DateTime AppointmentDate { get; set; }
+        public DateOnly AppointmentDate { get; set; }
         [Required]
         [StringLength(50)]
         public string Status { get; set; } = "Pending"; 
@@ -17,6 +17,4 @@ public class Appointment : BaseModule
         public string? Notes { get; set; }
         [Required]
         public double Deposit {get; set;}
-        public Prescription prescription {get; set;}
-
 }

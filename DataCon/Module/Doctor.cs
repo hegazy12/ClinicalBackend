@@ -11,7 +11,5 @@ public class Doctor :BaseModule
     public string lastName {get; set;}
     public string specialization {get; set;}
     public IdentityUser user {get; set;}
-
     public List<Prescription> prescriptions {get; set;}
-
 }

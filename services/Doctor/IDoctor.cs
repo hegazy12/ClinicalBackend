@@ -4,4 +4,5 @@ namespace ElearingEnglis.services.Doctor;
 public interface IDoctor
 {
     public List<DTODoctor> getDoctors();
+    public bool CreateDoctor(Guid useid , CreateDoctorDTO dTO);
 }

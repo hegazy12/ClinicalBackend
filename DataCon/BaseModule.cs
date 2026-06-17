@@ -18,6 +18,7 @@ public class BaseModule
    
     public void Create(Guid userId)
     {
+        Id= Guid.NewGuid();
         IsUpdated = false;
         IsActive = false;
         IsDeleted = false;

@@ -19,10 +19,10 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<DBCon>(options =>
-    options.UseMySql(
-        connectionString,
-        ServerVersion.AutoDetect(connectionString)
-    ));
+    options.UseMySql( connectionString,ServerVersion.AutoDetect(connectionString))
+            .LogTo(Console.WriteLine, LogLevel.Information) // Prints SQL to console
+           .EnableSensitiveDataLogging()
+    );
     
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBCon>();
 builder.Services.AddControllers();

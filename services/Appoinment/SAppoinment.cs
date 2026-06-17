@@ -4,6 +4,7 @@ using ElearingEnglis.DataCon;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ElearingEnglis.services.Doctor.DTO;
+using NuGet.Protocol;
 namespace ElearingEnglis.services.Appoinment;
 public class SAppoinment:IAppoinment
 {
@@ -16,28 +17,32 @@ public class SAppoinment:IAppoinment
         _userManager = userManager;
     }
     
- public async Task<bool> Create(Guid Userid , CreateAppoinmentDTO dTO)
+ public Boolean Create(Guid Userid , CreateAppoinmentDTO dTO)
   {
-    var Doctor = _context.doctors.Find(dTO.DoctorId.ToString());
-    var P      = _context.patients.Where(m=> m.Id == dTO.PatientId).FirstOrDefault();
+  
+    
     try {
-            Appointment _appointment = new Appointment()
-            {
-              AppointmentDate = dTO.DateTimeAppoinment,
-              Deposit=dTO.Deposit,
-              Doctor= Doctor,
-              Patient = P ,
-              Notes = dTO.note
-            };
-            
-            Console.WriteLine(dTO.DateTimeAppoinment);
-            Console.WriteLine(_appointment.AppointmentDate);
+       var Doctor = _context.doctors.Find(Guid.Parse(dTO.DoctorId));
+       Console.WriteLine(Doctor.ToJson());
+       var P      = _context.patients.Where(m=> m.Id == Guid.Parse(dTO.PatientId)).FirstOrDefault();
+       Console.WriteLine(P.ToJson());
+       Appointment _appointment = new Appointment()
+          {
+            AppointmentDate = dTO.DateAppoinment,
+            Deposit=dTO.Deposit,
+            Doctor= Doctor,
+            Patient = P ,
+            Notes = dTO.note
+          };
+          _appointment.Create(Userid);
 
-            _appointment.Create(Userid);
-            _context.appointments.Add(_appointment);
-            _context.SaveChanges();
-    }catch
+          _context.appointments.Add(_appointment);
+          _context.SaveChanges();
+          
+    }catch(Exception e)
     {
+        Console.WriteLine("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        Console.WriteLine(e.InnerException.Message);
         return false;        
     }
 
@@ -59,7 +64,7 @@ public List<DTOAppoinment> GetPatientAppoinment(Guid idPatient)
       D = _context.doctors.Where(m=> m.Id == i.Doctor.Id).First();
       
       Result.Add(new DTOAppoinment (){
-        AppoinmentDate = DateOnly.FromDateTime(i.AppointmentDate) ,
+        AppoinmentDate = i.AppointmentDate ,
         Deposit = i.Deposit , 
         Doctor = new DTODoctor(){firstName = D.fristName , lastName = D.lastName , specialization =  D.specialization , ID = D.Id.ToString()},
         note = i.Notes,
