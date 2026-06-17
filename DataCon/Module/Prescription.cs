@@ -12,6 +12,6 @@
         public Guid AppointmentId { get; set; }
         public Appointment Appointment { get; set; }
         public ICollection<DrugItem> Items { get; set; }
-        public Appointment Appointment {get; set;}
+       
     }
 }
