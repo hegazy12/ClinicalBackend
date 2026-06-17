@@ -13,6 +13,9 @@ public class DBCon : IdentityDbContext
     public DbSet<Drug> drugs { get; set; }
     public DbSet<DrugItem> drugItems {get; set;}
     public DbSet<Prescription> prescriptions {get; set;}    
+    public DbSet<VitalSignMaster> VitalSignMaster { get; set;}
+    public DbSet<VitalSign>VitalSigns { get; set;}
+
     public DBCon(DbContextOptions<DBCon> options) : base(options){}
   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +29,12 @@ public class DBCon : IdentityDbContext
         modelBuilder.Entity<Prescription>().HasMany(p => p.Items).WithOne(i => i.Prescription).HasForeignKey(i => i.PrescriptionId);
         modelBuilder.Entity<Prescription>().HasOne(p => p.Doctor).WithMany(d => d.prescriptions);
 
+     modelBuilder.Entity<Appointment>()
+    .HasOne(a => a.Prescription)
+    .WithOne(p => p.Appointment)
+    .HasForeignKey<Prescription>(p => p.AppointmentId);
+
+        modelBuilder.Entity<VitalSignMaster>().HasMany(vm=>vm.VitalSigns).WithOne(v => v.VitalSignMaster).HasForeignKey(v => v.VitalSignMasterId);
     }
     
 }

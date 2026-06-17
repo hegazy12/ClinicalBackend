@@ -7,6 +7,7 @@ public class Appointment : BaseModule
         [Required]
         public Doctor Doctor { get; set; }
         [Required]
+        public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
         [Required]
         public DateTime AppointmentDate { get; set; }
@@ -17,6 +18,11 @@ public class Appointment : BaseModule
         public string? Notes { get; set; }
         [Required]
         public double Deposit {get; set;}
-        public Prescription prescription {get; set;}
+
+    public Prescription? Prescription {get; set;}
+    public List<VitalSign>? VitalSigns { get; set; } = new();
+
+
+
 
 }

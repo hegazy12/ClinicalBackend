@@ -6,6 +6,7 @@ using ElearingEnglis.services.JWT;
 using ElearingEnglis.services.Lgoin;
 using ElearingEnglis.services.Patient;
 using ElearingEnglis.services.Rgistration;
+using ElearingEnglis.services.VitalSignMaster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,8 +46,9 @@ builder.Services.AddScoped<IAppoinment,SAppoinment>();
 builder.Services.AddScoped<IDoctor,SDoctor>();
 builder.Services.AddScoped<IDrugImportService, DrugImportService>();
 builder.Services.AddScoped<IDrugService, DrugService>();
+builder.Services.AddScoped<IVitalSignMasterRepo,VitalSignMasterRepo>();
+builder.Services.AddScoped<IVitalSignMasterService,VitalSignMasterService>();
 builder.Services.AddScoped<IDrugRepo, DrugRepo>();
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
