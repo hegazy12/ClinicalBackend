@@ -12,9 +12,9 @@ namespace ElearingEnglis.services.Drug
             _context = con;
         }
 
-        public async Task<List<DataCon.Module.Drug>> GetDrugsAsync(string SearchTerm)
+        public async Task<IQueryable<DataCon.Module.Drug>> GetDrugsAsync(string SearchTerm)
         {
-            var drugs = await _context.drugs.Where(d=>d.CommercialNameEn.Contains(SearchTerm)).ToListAsync();
+            var drugs = _context.drugs.Where(d=>d.CommercialNameEn.Contains(SearchTerm));
             return drugs;
         }
     }

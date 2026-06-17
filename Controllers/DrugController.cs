@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ElearingEnglis.Controllers
 {
-    [Route("api/[controller]/[Action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize(Roles = "Admin,User")]
     public class DrugController : ControllerBase
@@ -17,12 +17,11 @@ namespace ElearingEnglis.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("{SearchTerm}")]
         public async Task<ActionResult<List<DrugDto>>> GetDrugs(string SearchTerm)
         {
             var drugs= await _service.GetDrugsAsync(SearchTerm);
             return drugs;
-
         }
     }
 }

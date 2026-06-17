@@ -21,11 +21,8 @@ namespace ElearingEnglis.services.Drug
             PriceEgp=d.PriceEgp,
             ScientificName=d.ScientificName,
             Route=d.Route
-            }).ToList();
+            }).Take(100).ToList();
             return res;
-
         }
-
-
     }
 }
