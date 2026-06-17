@@ -32,14 +32,14 @@ namespace ElearingEnglis.services.Drug
             if (drugs == null || drugs.Count == 0)
                 return 0;
 
-            var existingNames = await _context.drugs
-                .Select(d => d.CommercialNameEn)
-                .ToListAsync();
+            //var existingNames = await _context.drugs
+            //    .Select(d => d.CommercialNameEn)
+            //    .ToListAsync();
 
-            var existingSet = existingNames
-                .Where(x => x != null)
-                .Select(x => x.ToLower())
-                .ToHashSet();
+            //var existingSet = existingNames
+            //    .Where(x => x != null)
+            //    .Select(x => x.ToLower())
+            //    .ToHashSet();
 
             var newDrugs = new List<DataCon.Module.Drug>();
 
@@ -50,8 +50,8 @@ namespace ElearingEnglis.services.Drug
 
                 var name = drug.CommercialNameEn.Trim();
 
-                if (existingSet.Contains(name.ToLower()))
-                    continue;
+                //if (existingSet.Contains(name.ToLower()))
+                //    continue;
                 drug.CommercialNameEn = name;
                 drug.CommercialNameAr = drug.CommercialNameAr?.Trim();
                 drug.ScientificName = drug.ScientificName?.Trim();
@@ -66,9 +66,22 @@ namespace ElearingEnglis.services.Drug
 
             if (newDrugs.Count == 0)
                 return 0;
+            int take = 100;
+            List<DataCon.Module.Drug> drugsToadd =new List<DataCon.Module.Drug>();
 
-            await _context.drugs.AddRangeAsync(newDrugs);
-            await _context.SaveChangesAsync();
+
+            for (int i=21300;i< 24818;i+=50)
+            {
+                
+              
+                await _context.drugs.AddRangeAsync(newDrugs.Skip(i).Take(50).ToList());
+                _context.SaveChanges();
+               //await _context.Database.CloseConnectionAsync();
+                Thread.Sleep(10000);
+               //await _context.Database.OpenConnectionAsync();
+                
+            }
+
 
             return newDrugs.Count;
         }

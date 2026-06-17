@@ -7,8 +7,10 @@
         public Doctor Doctor { get; set; }
         public string? Diagnosis { get; set; }  
 
-        public string? Notes { get; set; }     
+        public string? Notes { get; set; }
 
+        public Guid AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
         public ICollection<DrugItem> Items { get; set; }
         public Appointment Appointment {get; set;}
     }
