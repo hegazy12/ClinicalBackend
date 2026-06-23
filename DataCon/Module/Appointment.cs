@@ -20,7 +20,7 @@ public class Appointment : BaseModule
         public double Deposit {get; set;}
 
     public Prescription? Prescription {get; set;}
-    public List<VitalSign>? VitalSigns { get; set; } = new();
+    public List<VitalSign>? VitalSigns { get; set; } 
 
 
 

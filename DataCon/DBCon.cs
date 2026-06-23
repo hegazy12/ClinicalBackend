@@ -29,10 +29,10 @@ public class DBCon : IdentityDbContext
         modelBuilder.Entity<Prescription>().HasMany(p => p.Items).WithOne(i => i.Prescription).HasForeignKey(i => i.PrescriptionId);
         modelBuilder.Entity<Prescription>().HasOne(p => p.Doctor).WithMany(d => d.prescriptions);
 
-     modelBuilder.Entity<Appointment>()
-    .HasOne(a => a.Prescription)
-    .WithOne(p => p.Appointment)
-    .HasForeignKey<Prescription>(p => p.AppointmentId);
+        modelBuilder.Entity<Appointment>()
+         .HasOne(a => a.Prescription)
+         .WithOne(p => p.Appointment)
+     .HasForeignKey<Prescription>(p => p.AppointmentId);
 
         modelBuilder.Entity<VitalSignMaster>().HasMany(vm=>vm.VitalSigns).WithOne(v => v.VitalSignMaster).HasForeignKey(v => v.VitalSignMasterId);
     }
